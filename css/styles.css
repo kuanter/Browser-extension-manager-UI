@@ -1,0 +1,28 @@
+:root {
+    /* Colors - Neutral */
+    --clr-neutral-900: hsl(227, 75%, 14%);                                                                                                                                                    
+    --clr-neutral-800: hsl(226, 25%, 17%);                                                                                                                                                    
+    --clr-neutral-700: hsl(225, 23%, 24%);                                                                                                                                                    
+    --clr-neutral-600: hsl(226, 11%, 37%);                                                                                                                                                    
+    --clr-neutral-300: hsl(0, 0%, 78%);                                                                                                                                                       
+    --clr-neutral-200: hsl(217, 61%, 90%);                                                                                                                                                    
+    --clr-neutral-100: hsl(0, 0%, 93%);                                                                                                                                                       
+    --clr-neutral-0: hsl(200, 60%, 99%);                                                                                                                                                      
+                                                                                                                                                                                            
+    /* Colors - Primary/Accent */                                                                                                                                                             
+    --clr-red-400: hsl(3, 86%, 64%);                                                                                                                                                          
+    --clr-red-500: hsl(3, 71%, 56%);                                                                                                                                                          
+    --clr-red-700: hsl(3, 77%, 44%);                                                                                                                                                          
+                                                                                                                                                                                            
+    /* Gradients */                                                                                                                                                                           
+    --grad-light: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);                                                                                                                          
+    --grad-dark: linear-gradient(180deg, #040918 0%, #091540 100%);                                                                                                                           
+                                                                                                                                                                                            
+    /* Typography */
+    --ff-base: 'Noto Sans', sans-serif;                                                                                                                                                       
+    --fs-body: 1rem;                                                                                                                        
+    --fw-regular: 400;                                                                                                                                                                        
+    --fw-medium: 500;                                                                                                                                                                         
+    --fw-bold: 700;                                                                                                                                                                           
+}    
+
