@@ -24,5 +24,242 @@
     --fw-regular: 400;                                                                                                                                                                        
     --fw-medium: 500;                                                                                                                                                                         
     --fw-bold: 700;                                                                                                                                                                           
+
+
+    --bg-main: var(--grad-light);
+    --bg-secondary: var(--clr-neutral-100);
+    --toggle-slider-bg: var(--clr-neutral-300);
+    --bg-card: var(--clr-neutral-0);
+    --text-main: var(--clr-neutral-900);
+    --text-secondary: var(--clr-neutral-600);
+    --text-active-btn: var(--clr-neutral-0);
+    --border-color: var(--clr-neutral-300);
+    --border-secondary: var(--clr-neutral-100);
 }    
+
+*,                                                                                                                                            
+*::before,                                                                                                                                    
+*::after {                                                                                                                                    
+    box-sizing: border-box;                                                                                                                     
+    margin: 0;                                                                                                                                  
+    padding: 0;                                                                                                                                 
+}
+
+
+/* Dark Theme */
+html[data-theme="dark"] {
+    --bg-main: var(--clr-neutral-900);
+    --bg-secondary: var(--clr-neutral-700);
+    --bg-card: var(--clr-neutral-800);
+    --text-main: var(--clr-neutral-0);
+    --text-secondary: var(--clr-neutral-300);
+    --border-color: var(--clr-neutral-700);
+}
+
+html[data-theme="dark"] header > svg > path {
+    fill: var(--text-main);
+}
+
+html[data-theme="dark"] header > button > img#toggle-dark-mode-icon {
+    display: none;
+}
+
+html[data-theme="dark"] header > button > img#toggle-light-mode-icon {
+    display: block;
+}
+
+/* Default Theme (Light) */
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--ff-base);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+}
+
+/*Buttons*/ 
+.btn {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    padding: 0.3rem 0.5rem;
+    border-radius: 15px;
+    font-size: var(--fs-body);
+    font-weight: var(--fw-regular);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:active {
+    background-color: var(--clr-red-700);  
+    color: var(--text-active-btn);
+}
+
+/*hidden class*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/*header*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    background-color: var(--bg-card);
+    width: 95%;
+    margin: 1rem auto;
+    padding: 0.5rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+/* Toggle dark mode btn in header */
+#toggle-dark-mode-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 15%;
+}
+
+/* MAIN */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/* Controls container */
+.controls{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Filter  buttons container */
+div.filters{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+    margin: 1rem auto;
+}
+
+/*Radio buttons*/
+.filter-btn + label {
+    font-size: 1.2rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 17px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-btn:checked + label {
+    background-color: var(--clr-red-700);  
+    color: var(--text-active-btn);
+}
+
+/* Extensions list container */
+.extension-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem auto;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+/* Extension card */
+.extension-item {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+.extension-info, .extension-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+.extension-text {
+    margin: 0.3rem 0.5rem;
+}
+
+/* Toggle slider */
+.toggle-slider {
+  width: 60px;
+  height: 30px;
+  background-color: var(--toggle-slider-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border: 4px solid transparent;
+  transition: .3s;
+  box-shadow: 0 0 10px 0 rgb(0, 0, 0, 0.25) inset;
+  cursor: pointer;
+}
+
+.toggle-slider::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-secondary);
+  transform: translateX(-30px);
+  border-radius: 20px;
+  transition: .3s;
+  box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+}
+
+.checkbox:checked ~ .toggle-slider::before {
+  transform: translateX(30px);
+  box-shadow: 0 0 10px 3px rgb(0, 0, 0, 0.25);
+}
+
+.checkbox:checked ~ .toggle-slider {
+  background-color: var(--clr-red-700);
+}
+
+.checkbox:active ~ .toggle-slider::before {
+  transform: translate(0);
+}
+
+/*footer*/
+footer {
+    bottom: 0;
+    width: 95%;
+    margin: 1rem auto;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border-color);
+}
 
