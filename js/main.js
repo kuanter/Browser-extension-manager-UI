@@ -17,7 +17,7 @@ async function renderExtensions() {
                 <div class="extension-info">
                     <img
                     src="${extension.logo}"
-                    alt="Dev Lens Icon"
+                    alt="${extension.name} logo"
                     class="extension-icon"
                     />
                     <div class="extension-text">
@@ -38,7 +38,7 @@ async function renderExtensions() {
                     </button>
 
                     <label class="toggle-switch">
-                    <input type="checkbox" class="sr-only checkbox" ${extension.isActive ? 'checked' : ''}/>
+                    <input type="checkbox" class="sr-only checkbox" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
                     <span class="toggle-slider"></span>
                     </label>
                 </div>
@@ -53,3 +53,9 @@ async function renderExtensions() {
 }
 
 renderExtensions();
+
+extensionList.addEventListener('change', (event) => {
+    if (event.target.classList.contains('checkbox')) {
+        console.log(`[UI TEST]: PATCH: Extension: ${event.target.dataset.name}, Status: ${event.target.checked}`);
+    }
+});
