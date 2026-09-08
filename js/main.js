@@ -13,13 +13,13 @@ async function fetchExtensions(){
     }
 }
 
-function renderExtensions(extensions) {
-    if(!extensions){
+function renderExtensions(filteredExtensions = allExtensions) {
+    if(!filteredExtensions){
         extensionList.innerHTML = "Sorry, we can't fetch your extensions";
         return;
     }
 
-    const htmlString = extensions.map(extension => {
+    const htmlString = filteredExtensions.map(extension => {
         return ` 
         <li class="extension-item">
             <div class="extension-info">
@@ -41,6 +41,7 @@ function renderExtensions(extensions) {
                 class="remove-btn btn"
                 type="button"
                 aria-label="Remove extension"
+                data-name="${extension.name}"
                 >
                 Remove
                 </button>
@@ -81,6 +82,19 @@ extensionList.addEventListener('change', (event) => {
     }
 });
 
+extensionList.addEventListener('click', (event) => {
+    if(event.target.classList.contains("remove-btn")){    
+        const extensionName = event.target.dataset.name;
+        allExtensions = allExtensions.filter(extension => extension.name !== extensionName);
+        
+        const checkedFilterBtn = document.querySelector('.filter-btn:checked');
+        const currFilter = getFilteredExtensions(checkedFilterBtn.dataset.status);
+        renderExtensions(currFilter);
+       
+        console.log(`DELETE: ${extensionName} has been deleted`)
+    }
+});
+
 filters.addEventListener('change', (event) => {
     if (event.target.classList.contains('filter-btn')) {
         const filteredExtensions = getFilteredExtensions(event.target.dataset.status);
@@ -90,7 +104,7 @@ filters.addEventListener('change', (event) => {
 
 async function initApp() {
     await fetchExtensions();
-    renderExtensions(allExtensions);
+    renderExtensions();
 }
 
 initApp();
