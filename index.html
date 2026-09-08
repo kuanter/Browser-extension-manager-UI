@@ -70,6 +70,7 @@
 
         <div
           class="filters"
+          id="filters"
           role="group"
           aria-label="Filter extensions by status"
         >
@@ -78,6 +79,7 @@
             id="filter-all"
             class="btn filter-btn sr-only"
             name="status-filter"
+            data-status = "all"
             checked
           />
           <label for="filter-all">All</label>
@@ -87,6 +89,7 @@
             id="filter-active"
             class="btn filter-btn sr-only"
             name="status-filter"
+            data-status = "active"
           />
           <label for="filter-active">Active</label>
 
@@ -95,42 +98,14 @@
             id="filter-inactive"
             class="btn filter-btn sr-only"
             name="status-filter"
+            data-status = "inactive"
           />
           <label for="filter-inactive">Inactive</label>
         </div>
       </div>
 
-      <ul id="extension-list">
-        <li class="extension-item">
-          <div class="extension-info">
-            <img
-              src="./assets/images/logo-devlens.svg"
-              alt="Dev Lens Icon"
-              class="extension-icon"
-            />
-            <div class="extension-text">
-              <h2 class="extension-name">DevLens</h2>
-              <p class="extension-description">
-                Quickly inspect page layouts and visualize element boundaries.
-              </p>
-            </div>
-          </div>
-
-          <div class="extension-buttons">
-            <button
-              class="remove-btn btn"
-              type="button"
-              aria-label="Remove extension"
-            >
-              Remove
-            </button>
-
-            <label class="toggle-switch">
-              <input type="checkbox" class="sr-only checkbox" />
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-        </li>
+      <ul id="extension-list" class="extension-list">
+        <!-- Extension cards will be dynamically inserted here by JavaScript -->
       </ul>
     </main>
     <footer class="attribution">
@@ -138,6 +113,6 @@
       <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
       Coded by <a href="#">Your Name Here</a>.
     </footer>
-    <script src="js/main.js"></script>
+    <script src="js/main.js" type="module"></script>
   </body>
 </html>

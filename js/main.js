@@ -1,61 +1,96 @@
 const toggleDarkModeBtn = document.getElementById('toggle-dark-mode-btn');
 const extensionList = document.getElementById('extension-list');
+const filters = document.getElementById('filters');
+let allExtensions = [];
+
+async function fetchExtensions(){
+    try{
+        const response = await fetch("data.json");
+        allExtensions = await response.json();
+        console.log(allExtensions);
+    }catch(error){
+        console.log("ERROR: fetch data.json");
+    }
+}
+
+function renderExtensions(extensions) {
+    if(!extensions){
+        extensionList.innerHTML = "Sorry, we can't fetch your extensions";
+        return;
+    }
+
+    const htmlString = extensions.map(extension => {
+        return ` 
+        <li class="extension-item">
+            <div class="extension-info">
+                <img
+                src="${extension.logo}"
+                alt="${extension.name} logo"
+                class="extension-icon"
+                />
+                <div class="extension-text">
+                <h2 class="extension-name">${extension.name}</h2>
+                <p class="extension-description">
+                    ${extension.description}
+                </p>
+                </div>
+            </div>
+
+            <div class="extension-buttons">
+                <button
+                class="remove-btn btn"
+                type="button"
+                aria-label="Remove extension"
+                >
+                Remove
+                </button>
+
+                <label class="toggle-switch">
+                <input type="checkbox" class="sr-only checkbox" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
+                <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </li>`
+    }).join('');
+
+    extensionList.innerHTML = htmlString;
+}
+
+function getFilteredExtensions(status) {
+    if(status === "all") return allExtensions;
+    
+    if(status === "active") return allExtensions.filter(extension => extension.isActive === true);
+    
+    if(status === "inactive")  return allExtensions.filter(extension => extension.isActive === false);
+}
 
 toggleDarkModeBtn.addEventListener('click', () => {
     document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     localStorage.setItem('theme', document.documentElement.dataset.theme);
 });
 
-async function renderExtensions() {
-    try{
-        const response = await fetch('data.json');
-        const extensions = await response.json();
-
-        const htmlString = extensions.map(extension => {
-            return ` 
-            <li class="extension-item">
-                <div class="extension-info">
-                    <img
-                    src="${extension.logo}"
-                    alt="${extension.name} logo"
-                    class="extension-icon"
-                    />
-                    <div class="extension-text">
-                    <h2 class="extension-name">${extension.name}</h2>
-                    <p class="extension-description">
-                        ${extension.description}
-                    </p>
-                    </div>
-                </div>
-
-                <div class="extension-buttons">
-                    <button
-                    class="remove-btn btn"
-                    type="button"
-                    aria-label="Remove extension"
-                    >
-                    Remove
-                    </button>
-
-                    <label class="toggle-switch">
-                    <input type="checkbox" class="sr-only checkbox" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
-                    <span class="toggle-slider"></span>
-                    </label>
-                </div>
-            </li>`
-        }).join('');
-
-        extensionList.innerHTML = htmlString;
-    }catch (error) {
-        console.log(`Rendering extensions failed: ${error}`);
-        extensionList.innerHTML = '<p>Failed to render extensions.</p>';
-    }
-}
-
-renderExtensions();
-
 extensionList.addEventListener('change', (event) => {
     if (event.target.classList.contains('checkbox')) {
-        console.log(`[UI TEST]: PATCH: Extension: ${event.target.dataset.name}, Status: ${event.target.checked}`);
+        const extensionName = event.target.dataset.name;
+        const extensionStatus = event.target.checked;
+
+        const index = allExtensions.findIndex(extension => extension.name === extensionName);
+        allExtensions[index].isActive = extensionStatus;
+
+        console.log(`[UI TEST]: PATCH: Extension: ${extensionName}, Status: ${extensionStatus}`);
     }
 });
+
+filters.addEventListener('change', (event) => {
+    if (event.target.classList.contains('filter-btn')) {
+        const filteredExtensions = getFilteredExtensions(event.target.dataset.status);
+        renderExtensions(filteredExtensions);
+    }       
+});
+
+async function initApp() {
+    await fetchExtensions();
+    renderExtensions(allExtensions);
+}
+
+initApp();
