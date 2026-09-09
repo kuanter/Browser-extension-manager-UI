@@ -1,8 +1,17 @@
+// ==========================================                                                          
+// 1. GLOBAL STATE & DOM ELEMENTS                                                                      
+// ==========================================  
+
 const toggleDarkModeBtn = document.getElementById('toggle-dark-mode-btn');
 const extensionList = document.getElementById('extension-list');
 const filters = document.getElementById('filters');
 let allExtensions = [];
 
+// ==========================================                                                          
+// 2. FUNCTIONS                                                                       
+// ========================================== 
+
+/*Fetch extension from data.json*/
 async function fetchExtensions(){
     try{
         const response = await fetch("data.json");
@@ -13,6 +22,10 @@ async function fetchExtensions(){
     }
 }
 
+/** 
+    Render extension items dynamically
+    @param {Array} filteredExtensions - your filtered extensions or dafault allExtensions
+*/
 function renderExtensions(filteredExtensions = allExtensions) {
     if(!filteredExtensions){
         extensionList.innerHTML = "Sorry, we can't fetch your extensions";
@@ -57,6 +70,11 @@ function renderExtensions(filteredExtensions = allExtensions) {
     extensionList.innerHTML = htmlString;
 }
 
+
+/** 
+    Filter extension items by status
+    @param {string} status - can be "all", "active" or "inactive"
+*/
 function getFilteredExtensions(status) {
     if(status === "all") return allExtensions;
     
@@ -64,6 +82,10 @@ function getFilteredExtensions(status) {
     
     if(status === "inactive")  return allExtensions.filter(extension => extension.isActive === false);
 }
+
+// ==========================================                                                          
+// 3. EVENT LISTENERS                                                                                  
+// ==========================================  
 
 toggleDarkModeBtn.addEventListener('click', () => {
     document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -75,6 +97,7 @@ extensionList.addEventListener('change', (event) => {
         const extensionName = event.target.dataset.name;
         const extensionStatus = event.target.checked;
 
+        // Update status in allExtensions without using renderExtensions()
         const index = allExtensions.findIndex(extension => extension.name === extensionName);
         allExtensions[index].isActive = extensionStatus;
 
@@ -87,9 +110,8 @@ extensionList.addEventListener('click', (event) => {
         const extensionName = event.target.dataset.name;
         allExtensions = allExtensions.filter(extension => extension.name !== extensionName);
         
-        const checkedFilterBtn = document.querySelector('.filter-btn:checked');
-        const currFilter = getFilteredExtensions(checkedFilterBtn.dataset.status);
-        renderExtensions(currFilter);
+        //Remove extension from DOM without using renderExtensions()
+        event.target.closest('.extension-item').remove();
        
         console.log(`DELETE: ${extensionName} has been deleted`)
     }
@@ -101,6 +123,10 @@ filters.addEventListener('change', (event) => {
         renderExtensions(filteredExtensions);
     }       
 });
+
+// ==========================================
+// 4. INITIALIZATION
+// ==========================================
 
 async function initApp() {
     await fetchExtensions();
