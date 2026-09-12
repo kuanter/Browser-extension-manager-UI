@@ -163,8 +163,8 @@ main {
     width: 100%;
 }
 
-h1{
-    margin: 1rem, 0;
+#title{
+    margin: 0.5rem 0;
 }
 
 /* Filter  buttons container */
@@ -172,7 +172,7 @@ div.filters{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 50%;
+    width: 75%;
     margin: 1rem auto;
 }
 
@@ -196,7 +196,7 @@ div.filters{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 1rem auto;
+    margin: 0.5rem auto;
     padding: 0.5rem;
     border-radius: 10px;
 }
@@ -294,6 +294,11 @@ footer {
     /* Filter  buttons container */
     .extension-item {
         width: 80%;
+    }
+
+     /* Filter  buttons container */
+    div.filters{
+        width: 60%;
     }
 
     /* Filter  buttons container */
