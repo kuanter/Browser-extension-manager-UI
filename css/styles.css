@@ -75,6 +75,7 @@ body{
     align-items: center;
     min-height: 100vh;
 
+
     background-color: var(--bg-main);
     color: var(--text-main);
     font-family: var(--ff-base);
@@ -88,7 +89,7 @@ body{
     color: var(--text-main);
     border: 1px solid var(--border-color);
     cursor: pointer;
-    padding: 0.3rem 0.5rem;
+    padding: 0.5rem;
     border-radius: 15px;
     font-size: var(--fs-body);
     font-weight: var(--fw-regular);
@@ -120,7 +121,7 @@ header {
     align-items: center;
     
     background-color: var(--bg-card);
-    width: 95%;
+    width: 90%;
     margin: 1rem auto;
     padding: 0.5rem 0.8rem;
     border-radius: 10px;
@@ -145,9 +146,13 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
     flex-grow: 1;
 }
+
+
 
 /* Controls container */
 .controls{
@@ -158,21 +163,25 @@ main {
     width: 100%;
 }
 
+h1{
+    margin: 1rem, 0;
+}
+
 /* Filter  buttons container */
 div.filters{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 75%;
+    width: 50%;
     margin: 1rem auto;
 }
 
 /*Radio buttons*/
 .filter-btn + label {
     font-size: 1.2rem;
-    padding: 0.3rem 0.5rem;
+    padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);
-    border-radius: 17px;
+    border-radius: 23px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -196,19 +205,35 @@ div.filters{
 .extension-item {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 95%;
     padding: 0.5rem;
     border: 1px solid var(--border-color);
     border-radius: 10px;
     margin-bottom: 1rem;
+    background-color: var(--bg-card);
 }
 
-.extension-info, .extension-buttons{
+.empty-state-item{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.3rem;
+    color: var(--clr-red-500);
+}   
+
+.extension-info{
+    display: flex;
     align-items: center;
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 0.5rem 0.3rem;
+}
+
+.extension-buttons{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 0.3rem 0;    
 }
 
 .extension-text {
@@ -257,10 +282,71 @@ div.filters{
 
 /*footer*/
 footer {
-    bottom: 0;
     width: 95%;
     margin: 1rem auto;
     padding: 0.5rem 0;
     border-top: 1px solid var(--border-color);
+}
+
+/*MEDIA*/
+
+@media (min-width: 768px){
+    /* Filter  buttons container */
+    .extension-item {
+        width: 80%;
+    }
+
+    /* Filter  buttons container */
+    div.filters{
+        width: minmax(40%, 300px)
+    }
+}
+
+@media (min-width: 1024px){
+    main {
+       flex-flow: column;
+    }
+    
+    /* Controls container */
+    .controls{
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center; 
+        width: 85%;
+    }
+
+    h1{
+        width: 50%;
+    }
+
+    /* Filter  buttons container */
+    div.filters{
+        width: 50%;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+
+    /*Dynamic extension list*/
+    #extension-list{
+        display: grid;  
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)) !important;  
+        gap: 0.3rem 0.9rem;   
+        width:90%;
+
+    }
+
+    /*Extension cards*/
+    .extension-item{
+        width: 100%;
+        height: 200px;
+    }
+
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .btn:hover {
+        background-color: var(--bg-secondary);
+    }
+
 }
 
