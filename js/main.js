@@ -5,7 +5,9 @@
 const toggleDarkModeBtn = document.getElementById('toggle-dark-mode-btn');
 const extensionList = document.getElementById('extension-list');
 const filters = document.getElementById('filters');
+const extensionsEmptyState = `<li class="empty-state-item">No extensions are available!</li>`;
 let allExtensions = [];
+
 
 // ==========================================                                                          
 // 2. FUNCTIONS                                                                       
@@ -16,7 +18,6 @@ async function fetchExtensions(){
     try{
         const response = await fetch("data.json");
         allExtensions = await response.json();
-        console.log(allExtensions);
     }catch(error){
         console.log("ERROR: fetch data.json");
     }
@@ -32,7 +33,7 @@ function renderExtensions(filteredExtensions = allExtensions) {
         return;
     }
 
-    const htmlString = filteredExtensions.map(extension => {
+    let htmlString = filteredExtensions.map(extension => {
         return ` 
         <li class="extension-item">
             <div class="extension-info">
@@ -66,6 +67,10 @@ function renderExtensions(filteredExtensions = allExtensions) {
             </div>
         </li>`
     }).join('');
+
+    if(!htmlString){
+        htmlString = extensionsEmptyState; 
+    }    
 
     extensionList.innerHTML = htmlString;
 }
@@ -113,6 +118,12 @@ extensionList.addEventListener('click', (event) => {
         //Remove extension from DOM without using renderExtensions()
         event.target.closest('.extension-item').remove();
        
+        //Check the remaining extensions
+        const remaining = document.querySelector('.extension-item');
+        if(!remaining){
+            extensionList.innerHTML = extensionsEmptyState;
+        }
+
         console.log(`DELETE: ${extensionName} has been deleted`)
     }
 });
