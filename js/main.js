@@ -61,7 +61,7 @@ function renderExtensions(filteredExtensions = allExtensions) {
                 </button>
 
                 <label class="toggle-switch">
-                <input type="checkbox" class="sr-only checkbox" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
+                <input type="checkbox" class="sr-only checkbox", now extension is ${extension.isActive ? "active" : "inactive"}" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
                 <span class="toggle-slider"></span>
                 </label>
             </div>
@@ -119,7 +119,7 @@ extensionList.addEventListener('click', (event) => {
         event.target.closest('.extension-item').remove();
        
         //Check the remaining extensions
-        const remaining = document.querySelector('.extension-item');
+        const remaining = extensionList.querySelector('.extension-item');
         if(!remaining){
             extensionList.innerHTML = extensionsEmptyState;
         }
