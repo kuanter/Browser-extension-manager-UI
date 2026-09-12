@@ -61,7 +61,7 @@ function renderExtensions(filteredExtensions = allExtensions) {
                 </button>
 
                 <label class="toggle-switch">
-                <input type="checkbox" class="sr-only checkbox", now extension is ${extension.isActive ? "active" : "inactive"}" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
+                <input type="checkbox" class="sr-only checkbox" aria-label="Toggle switch for ${extension.name}, now extension is ${extension.isActive ? "active" : "inactive"}" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
                 <span class="toggle-slider"></span>
                 </label>
             </div>

@@ -83,6 +83,11 @@ body{
     font-weight: var(--fw-medium);
 }
 
+/*Anchor*/
+a{
+    color: var(--clr-red-400);
+}
+
 /*Buttons*/ 
 .btn {
     background-color: var(--bg-card);
