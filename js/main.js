@@ -54,14 +54,14 @@ function renderExtensions(filteredExtensions = allExtensions) {
                 <button
                 class="remove-btn btn"
                 type="button"
-                aria-label="Remove extension"
+                aria-label="Remove extension ${extension.name}"
                 data-name="${extension.name}"
                 >
                 Remove
                 </button>
 
                 <label class="toggle-switch">
-                <input type="checkbox" class="sr-only checkbox" aria-label="Toggle switch for ${extension.name}, now extension is ${extension.isActive ? "active" : "inactive"}" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
+                <input type="checkbox" class="sr-only checkbox" aria-label="Toggle switch for ${extension.name}" data-name="${extension.name}" ${extension.isActive ? 'checked' : ''}/>
                 <span class="toggle-slider"></span>
                 </label>
             </div>
